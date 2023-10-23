@@ -16,5 +16,7 @@ The insert.sql will cover the initial item reward for the default spots, and the
 
 Credit to RicX for the shovel anim stuff!
 
+**Requires VORP**
+
 Suggestions? Comments?
 https://discord.gg/ryhQ8HkTFd
