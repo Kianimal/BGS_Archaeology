@@ -10,5 +10,8 @@ That item can be picked up and the corresponding item will be placed in the user
 
 Pretty straightforward. Config is documented for your ease.
 
+Don't forget to add the items you configure as rewards to the DB!
+The insert.sql will cover the initial item reward for the default spots, and the accompanying image can be put in your vorp_inv image folder.
+
 Suggestions? Comments?
 https://discord.gg/ryhQ8HkTFd
