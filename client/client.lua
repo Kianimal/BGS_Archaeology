@@ -166,6 +166,15 @@ function CreatePile(destination)
 	end
 end
 
+RegisterNetEvent("BGS_Archaeology_Free:GetShovelCountClient")
+AddEventHandler("BGS_Archaeology_Free:GetShovelCountClient", function(count)
+	if count > 0 then
+		LocalPlayer.state:set("HasShovel", true, true)
+	else
+		LocalPlayer.state:set("HasShovel", false, true)
+	end
+end)
+
 RegisterNetEvent("vorp:SelectedCharacter", function()
 	CreateThread(function()
 		while true do
@@ -175,6 +184,8 @@ RegisterNetEvent("vorp:SelectedCharacter", function()
 			local ped = PlayerPedId()
 			local pedCoords = GetEntityCoords(ped)
 
+			TriggerServerEvent("BGS_Archaeology_Free:GetShovelCount")
+
 			for k, v in pairs(Config.Locations) do
 				local dirtPileObject
 				if not DoesEntityExist(v.dirtPile) and not contains(usedPoints, v.coords) and Citizen.InvokeNative(0xDA8B2EAF29E872E2, v.coords) then
@@ -183,7 +194,7 @@ RegisterNetEvent("vorp:SelectedCharacter", function()
 						Citizen.InvokeNative(0x9587913B9E772D29, dirtPileObject, true)
 					end
 				end
-				while GetDistanceBetweenCoords(pedCoords, v.coords) <= Config.MinimumDistance and not isDigging and not contains(usedPoints, v.coords) do
+				while GetDistanceBetweenCoords(pedCoords, v.coords) <= Config.MinimumDistance and not isDigging and not contains(usedPoints, v.coords) and LocalPlayer.state.HasShovel do
 					Wait(1)
 					pedCoords = GetEntityCoords(ped)
 					GroupName = Config.Language.PromptGroupName .. " - " .. v.name

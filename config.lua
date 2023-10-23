@@ -2,6 +2,8 @@ Config = {}
 
 Config.MinimumDistance = 2.0 -- Minimum distance required to enable prompts for digging and picking up reward item
 
+Config.ShovelItem = "shovel" -- DB name of shovel item required to dig
+
 -- Default locations. Feel free to add more, just follow the existing template
 Config.Locations = {
     {
@@ -12,7 +14,7 @@ Config.Locations = {
         coords = vector3(876.5939, 1264.7483, 234.2101) -- Coordinates for dirt mounds/reward item objects
     },
     {
-        name = "Citadel Rock",
+        name = "Heartlands",
         rewardName = "Dino Bone",
         reward = "dino_bone",
         model = "p_dinobone01x",
