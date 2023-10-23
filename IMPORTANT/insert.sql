@@ -1,0 +1,1 @@
+INSERT INTO `items` (`item`, `label`, `limit`, `can_remove`, `type`, `usable`, `id`, `groupId`, `metadata`, `desc`) VALUES ('dino_bone', 'Dinosaur Bone', 5, 1, 'item_standard', 1, NULL, 1, '{}', 'A dinosaur bone.');
