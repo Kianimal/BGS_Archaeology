@@ -16,6 +16,9 @@ The insert.sql will cover the initial item reward for the default spots, and the
 
 Credit to RicX for the shovel anim stuff!
 
+Preview:
+https://medal.tv/games/red-dead-2/clips/1A1WigHv4i8fey/d1337BUJUcT5?invite=cr-MSxSVkQsMTIxMjA1NjgxLA
+
 **Requires VORP**
 
 Suggestions? Comments?
