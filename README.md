@@ -14,5 +14,7 @@ Don't forget to add the items you configure as rewards to the DB!
 
 The insert.sql will cover the initial item reward for the default spots, and the accompanying image can be put in your vorp_inv image folder.
 
+Credit to RicX for the shovel anim stuff!
+
 Suggestions? Comments?
 https://discord.gg/ryhQ8HkTFd
