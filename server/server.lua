@@ -7,6 +7,8 @@ end)
 RegisterServerEvent("BGS_Archaeology_Free:GetShovelCount")
 AddEventHandler("BGS_Archaeology_Free:GetShovelCount", function()
 	local _source = source
-	local count = exports.vorp_inventory:getItemCount(_source, nil, Config.ShovelItem)
-	TriggerClientEvent("BGS_Archaeology_Free:GetShovelCountClient", _source, count)
+	if _source then
+		local count = exports.vorp_inventory:getItemCount(_source, nil, Config.ShovelItem)
+		TriggerClientEvent("BGS_Archaeology_Free:GetShovelCountClient", _source, count)
+	end
 end)
