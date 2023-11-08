@@ -9,15 +9,7 @@ local Group2 = GetRandomIntInRange(0, 0xffffff)
 local GroupName
 local usedPoints = {}
 
-function shuffle(table)
-	for i = #table, 2, -1 do
-		local j = math.random(i)
-		table[i], table[j] = table[j], table[i]
-	end
-	return table
-end
-
-function contains(table, element)
+local function contains(table, element)
 	if table ~= 0 then
 		for k, v in pairs(table) do
 			if v == element then
@@ -28,11 +20,11 @@ function contains(table, element)
 	return false
 end
 
-function CreateVarString(p0, p1, variadic)
+local function CreateVarString(p0, p1, variadic)
 	return Citizen.InvokeNative(0xFA925AC00EB830B9, p0, p1, variadic, Citizen.ResultAsLong())
 end
 
-function CreateDigPrompt(promptText, controlAction)
+local function CreateDigPrompt(promptText, controlAction)
 	local str = promptText
 	Prompt = PromptRegisterBegin()
 	PromptSetControlAction(Prompt, controlAction)
@@ -45,7 +37,7 @@ function CreateDigPrompt(promptText, controlAction)
 	PromptRegisterEnd(Prompt)
 end
 
-function CreatePickupPrompt(promptText, controlAction)
+local function CreatePickupPrompt(promptText, controlAction)
 	local str = promptText
 	Prompt2 = PromptRegisterBegin()
 	PromptSetControlAction(Prompt2, controlAction)
@@ -58,11 +50,7 @@ function CreatePickupPrompt(promptText, controlAction)
 	PromptRegisterEnd(Prompt2)
 end
 
-function GetDestination()
-	return shuffle(Config.Locations)[1]
-end
-
-function AttachEnt(from, to, boneIndex, x, y, z, pitch, roll, yaw, useSoftPinning, collision, vertex, fixedRot)
+local function AttachEnt(from, to, boneIndex, x, y, z, pitch, roll, yaw, useSoftPinning, collision, vertex, fixedRot)
 	return AttachEntityToEntity(
 		from,
 		to,
@@ -78,13 +66,11 @@ function AttachEnt(from, to, boneIndex, x, y, z, pitch, roll, yaw, useSoftPinnin
 		collision,
 		false,
 		vertex,
-		fixedRot,
-		false,
-		false
+		fixedRot
 	)
 end
 
-function PlayerDig(destination)
+local function PlayerDig(destination)
 	if shovelObject then
 		DeleteObject(shovelObject)
 		SetEntityAsNoLongerNeeded(shovelObject)
@@ -148,9 +134,6 @@ function PlayerDig(destination)
 	isDigging = false
 end
 
-CreateDigPrompt(Config.Language.PromptText, Config.ControlAction)
-CreatePickupPrompt(Config.Language.PickupPromptText, Config.PickupControlAction)
-
 function CreatePile(destination)
 	if not DoesEntityExist(destination.dirtPile) and not contains(usedPoints, destination.coords) then
 		local dirtPileModel = GetHashKey("mp005_p_dirtpile_big03_buried")
@@ -177,6 +160,10 @@ end)
 
 RegisterNetEvent("vorp:SelectedCharacter", function()
 	CreateThread(function()
+
+		CreateDigPrompt(Config.Language.PromptText, Config.ControlAction)
+		CreatePickupPrompt(Config.Language.PickupPromptText, Config.PickupControlAction)
+
 		while true do
 
 			Wait(1000)
@@ -188,8 +175,9 @@ RegisterNetEvent("vorp:SelectedCharacter", function()
 
 			for k, v in pairs(Config.Locations) do
 				local dirtPileObject
-				if not DoesEntityExist(v.dirtPile) and not contains(usedPoints, v.coords) and Citizen.InvokeNative(0xDA8B2EAF29E872E2, v.coords) then
+				if not DoesEntityExist(v.dirtPile) and not contains(usedPoints, v.coords) and Citizen.InvokeNative(0xDA8B2EAF29E872E2, v.coords) and GetDistanceBetweenCoords(pedCoords, v.coords) < 100 then
 					CreatePile(v)
+					Wait(1000)
 					if GetEntityHeightAboveGround(v.dirtPile) > 0.0 then
 						Citizen.InvokeNative(0x9587913B9E772D29, dirtPileObject, true)
 					end
