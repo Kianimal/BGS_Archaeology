@@ -134,7 +134,7 @@ local function PlayerDig(destination)
 	isDigging = false
 end
 
-function CreatePile(destination)
+local function CreatePile(destination)
 	if not DoesEntityExist(destination.dirtPile) and not contains(usedPoints, destination.coords) then
 		local dirtPileModel = GetHashKey("mp005_p_dirtpile_big03_buried")
 		RequestModel(dirtPileModel)
